@@ -3,8 +3,6 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 
-import static W20Project4GIVETOSTUDENTS.ScreenDisplay.CurrentParkStatus;
-
 public class ListModel extends AbstractTableModel {
 
     private ArrayList<CampSite> listCampSites;
@@ -24,7 +22,7 @@ public class ListModel extends AbstractTableModel {
 
     public ListModel() {
         super();
-        display = CurrentParkStatus;
+        display = ScreenDisplay.CurrentParkStatus;
         listCampSites = new ArrayList<CampSite>();
         fileredListCampSites = new ArrayList<CampSite>();
         UpdateScreen();
