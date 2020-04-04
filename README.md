@@ -20,7 +20,7 @@
 
 ## Program Description:
 
-   Your first task as a new programmer in a company will typically be modifying existing code. 
+   Your first task as a new programmer in a company will typically be modifying existing code. f
    With that in mind, our assignment is to change the Reservation System program (provided, 
    see Project 4 starting code on BB; this code is almost exactly the code you started with in 
    project 3) so the program uses a Linked list and other new functionality. ** You cannot add 
