@@ -1,4 +1,8 @@
-### Due Date:
+CIS 163
+Project 4 - Modifying existing code
+(A common first job as a developer)
+
+## Due Date:
     April 14, 2020
 
 ## Before Starting the Project:
@@ -17,16 +21,16 @@
     Your first task as a new programmer in a company will typically be modifying existing code. With that in mind,
     our assignment is to change the Reservation System program (provided, see Project 4 starting code on BB; this code
     is almost exactly the code you started with in project 3) so the program uses a Linked list and other new
-    functionality. You cannot add any additional instance variables to the classes provided without the instructor's
-    permission, specifically, the Node.java and MySingleWithOutTailLinkedList.java
+    functionality. ** You cannot add any additional instance variables to the classes provided without the instructor's
+    permission, specifically, the Node.java and MySingleWithOutTailLinkedList.java **
 
-## Step 0 - Start with the code provided and figure out how this code functions (take an hour or two)
+## Step 0 - Start with the code provided and figure out how this code functions 
 
 ## Step 1 - The existing code uses an ArrayList, change the following:
     In listModel, change all the ArrayList's to MySingleWithOutTailLinkedList (USE a single linked list without a tail).
     Once you have made this change, you will not see syntax errors in every place an ArrayList method was being used.
-    However, your program will not function and your task is to complete steps 2, and 3. From this point on, you are not
-    permitted to change the ListModel class.
+    ** However, your program will not function and your task is to complete steps 2, and 3. From this point on, you are not
+    permitted to change the ListModel class. **
 
 ## Step 2 - Complete all the methods found in MySingleWithOutTailLinkedList:
     Complete all the methods found in MySingleWithOutTailLinkedList class and any additional methods you need. You
