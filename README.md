@@ -20,11 +20,12 @@
 
 ## Program Description:
 
-   Your first task as a new programmer in a company will typically be modifying existing code. With that in mind,
-   our assignment is to change the Reservation System program (provided, see Project 4 starting code on BB; this code
-   is almost exactly the code you started with in project 3) so the program uses a Linked list and other new
-   functionality. ** You cannot add any additional instance variables to the classes provided without the instructor's
-   permission, specifically, the Node.java and MySingleWithOutTailLinkedList.java **
+   Your first task as a new programmer in a company will typically be modifying existing code. 
+   With that in mind, our assignment is to change the Reservation System program (provided, 
+   see Project 4 starting code on BB; this code is almost exactly the code you started with in 
+   project 3) so the program uses a Linked list and other new functionality. ** You cannot add 
+   any additional instance variables to the classes provided without the instructor's permission, 
+   specifically, the Node.java and MySingleWithOutTailLinkedList.java **
 
 ## Step 0 - Start with the code provided and figure out how this code functions 
 
