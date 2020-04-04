@@ -15,11 +15,11 @@
    - This project will help you develop complex methods, that is, the add method will be very complex to implement
 
 ## Learning Objectives:
-   After completing this project, you should be able to:
    - Implement a Single Linked list
    - Have the ability to examine and figure out existing code and modify that code
 
 ## Program Description:
+
    Your first task as a new programmer in a company will typically be modifying existing code. With that in mind,
    our assignment is to change the Reservation System program (provided, see Project 4 starting code on BB; this code
    is almost exactly the code you started with in project 3) so the program uses a Linked list and other new
