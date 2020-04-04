@@ -12,12 +12,12 @@
    - Read this entire project description before starting, if you have and questions please ask the instructor
 
 ## Why are you doing this assignment:
-    - This project will help you develop complex methods, that is, the add method will be very complex to implement
+   - This project will help you develop complex methods, that is, the add method will be very complex to implement
 
 ## Learning Objectives:
-    After completing this project, you should be able to:
-        - Implement a Single Linked list
-        - Have the ability to examine and figure out existing code and modify that code
+   After completing this project, you should be able to:
+      - Implement a Single Linked list
+      - Have the ability to examine and figure out existing code and modify that code
 
 ## Program Description:
    Your first task as a new programmer in a company will typically be modifying existing code. With that in mind,
