@@ -16,8 +16,8 @@
 
 ## Learning Objectives:
    After completing this project, you should be able to:
-      - Implement a Single Linked list
-      - Have the ability to examine and figure out existing code and modify that code
+   - Implement a Single Linked list
+   - Have the ability to examine and figure out existing code and modify that code
 
 ## Program Description:
    Your first task as a new programmer in a company will typically be modifying existing code. With that in mind,
