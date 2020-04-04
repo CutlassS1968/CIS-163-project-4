@@ -1,21 +1,31 @@
-CIS 163
-Project 4 - Modifying existing code
-(A common first job as a developer)
+# CIS 163
+# Project 4 - Modifying existing code
+# (A common first job as a developer)
+
+
 
 ## Due Date:
     April 14, 2020
+
+
 
 ## Before Starting the Project:
     - Review Chapters 8 - 10 and Chapters 12, 13, 15, 18 of the CIS163 book
     - Read this entire project description before starting, if you have and questions please ask the instructor
 
+
+
 ## Why are you doing this assignment:
     - This project will help you develop complex methods, that is, the add method will be very complex to implement
+
+
 
 ## Learning Objectives:
     After completing this project, you should be able to:
         - Implement a Single Linked list
         - Have the ability to examine and figure out existing code and modify that code
+
+
 
 ## Program Description:
    Your first task as a new programmer in a company will typically be modifying existing code. With that in mind,
@@ -24,7 +34,10 @@ Project 4 - Modifying existing code
    functionality. ** You cannot add any additional instance variables to the classes provided without the instructor's
    permission, specifically, the Node.java and MySingleWithOutTailLinkedList.java **
 
+
+
 ## Step 0 - Start with the code provided and figure out how this code functions 
+
 
 ## Step 1 - The existing code uses an ArrayList, change the following:
    In listModel, change all the ArrayList's to MySingleWithOutTailLinkedList (USE a single linked list without a tail).
@@ -32,16 +45,22 @@ Project 4 - Modifying existing code
    ** However, your program will not function and your task is to complete steps 2, and 3. From this point on, you are not
    permitted to change the ListModel class. **
 
+
+
 ## Step 2 - Complete all the methods found in MySingleWithOutTailLinkedList:
    Complete all the methods found in MySingleWithOutTailLinkedList class and any additional methods you need. You
    cannot add any additional instance variables to the classes provided, that is, the Node, and/or the
    MySingleWithOutTailLinkedList classes. You are NOT permitted to change the GUI and ListModel class. Most of your
    code should be in MySingleWithOutTailLinkedList and MySingleWithOutTailLinkedListTest classes.
 
+
+
 ### Requirements for step 2:
    When you write the add method, you are required to sort by tenters first (ordered by estimatedCheckOut) and by RV
    second (ordered by estimatedCheckOut). For this step 1, you need not worry about two estimatedCheckOut dates
    being equals. (See the final step regarding a change in this requirement).
+
+
 
 ## Step 3 - Handle equals cases in the add method:
    If two dates are the same then sort by guest name, this is a difficult step and you will need to see the instructor
