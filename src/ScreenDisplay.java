@@ -1,4 +1,4 @@
 public enum ScreenDisplay {
-    CurrentParkStatus,
-    CheckOutGuest,
+  CurrentParkStatus,
+  CheckOutGuest,
 }
