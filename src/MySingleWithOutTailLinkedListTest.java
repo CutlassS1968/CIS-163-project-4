@@ -31,13 +31,62 @@ public class MySingleWithOutTailLinkedListTest {
   public void add() {
     MySingleWithOutTailLinkedList list = new MySingleWithOutTailLinkedList();
 
-    // Case 0:
-    list.add(new TentOnly());
-    Assert.assertEquals(1, list.size());
+    // Case 0 & 1:
+    createSmallList(list);
+    Assert.assertEquals(4, list.size());
+  }
 
-    // Case 1:
-    list.add(new RV());
-    Assert.assertEquals(2, list.size());
+  @Test
+  public void sort() {
+    MySingleWithOutTailLinkedList list = new MySingleWithOutTailLinkedList();
+    SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyy");
+    GregorianCalendar g1 = new GregorianCalendar();
+
+    // Create the test list with a set seed
+    try {
+      Date d1 = df.parse("1/1/2020");
+      g1.setTime(d1);
+      int count = 0;
+      Random rand = new Random(10);
+      String guest;
+
+      while (count < 10) {
+        Date date = df.parse("1/" + (rand.nextInt(10) + 2) + "/2020");
+        GregorianCalendar g = new GregorianCalendar();
+        g.setTime(date);
+        if (rand.nextBoolean()) {
+          guest = "t" + rand.nextInt(6);
+          TentOnly tent = new TentOnly(guest, g1, g, null, rand.nextInt(20));
+          list.add(tent);
+        } else {
+          guest = "RV" + rand.nextInt(6);
+          date = df.parse("1/" + (rand.nextInt(10) + 2) + "/2020");
+          g.setTime(date);
+          RV rv = new RV(guest, g1, g, null, rand.nextInt(2000));
+          list.add(rv);
+        }
+        ++count;
+      }
+    } catch (ParseException e) {
+      throw new RuntimeException("Error in parsing");
+    }
+
+    // The correct order of the CampSites when sorted
+    ArrayList<String> ref = new ArrayList<>();
+    ref.add("t1");
+    ref.add("t2");
+    ref.add("t3");
+    ref.add("t1");
+    ref.add("RV0");
+    ref.add("RV1");
+    ref.add("RV4");
+    ref.add("RV2");
+    ref.add("RV4");
+    ref.add("RV3");
+
+    for (int i = 0; i < list.size(); ++i) {
+      Assert.assertEquals((ref.get(i)), list.get(i).getGuestName());
+    }
   }
 
   @Test
@@ -119,7 +168,7 @@ public class MySingleWithOutTailLinkedListTest {
   public void toStringTest() {
     MySingleWithOutTailLinkedList list = new MySingleWithOutTailLinkedList();
     createSmallList(list);
-    Assert.assertEquals("MySingleWithOutTailLinkedList{top=:RV1 :RV2 :T1 :T2 null, size=4}",
+    Assert.assertEquals("MySingleWithOutTailLinkedList{top=:T1 :T2 :RV1 :RV2 null, size=4}",
         list.toString());
   }
 

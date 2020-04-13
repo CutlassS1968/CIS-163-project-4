@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**********************************************************************************************
  *
@@ -77,70 +78,105 @@ public class MySingleWithOutTailLinkedList implements Serializable {
       ++size;
     }
 
-    // Sort the list after adding
-    sortList();
-
+    // Sort list after adding
+    sort();
   }
 
-  // TODO: Split LinkedList into two ArrayLists (tenters and RV's), then sort the two by checkOut
   /*********************************************************************************************
-   * Sorts the list, first according to each CampSite's check out date. Then sorts
-   * the list according to each CampSite's type. This method is called every time
-   * a CampSite is added to the List
+   * Sorts the list, first by splitting the LinkedList into two ArrayLists consisting of RV's and
+   * Tents. Then sorts those ArrayLists according to estimated check out date and adds the
+   * ArrayLists back
+   * to the LinkedList in order
    *********************************************************************************************/
-  public void sortList() {
-    Node current = top;
-    Node index;
-    CampSite temp;
+  public void sort() {
+    ArrayList<CampSite> tents = new ArrayList<>();
+    ArrayList<CampSite> rvs = new ArrayList<>();
+    int tempSize = size;
+    Node current;
 
-    // Case 0: If the list is empty
-    if (top.getNext() == null) {
-      return;
+    // Split LinkedList into two ArrayLists of TentOnly and RV
+    for (int i = 0; i < tempSize; ++i) {
+      if (get(i) instanceof TentOnly) {
+        tents.add(get(i));
+      } else {
+        rvs.add(get(i));
+      }
     }
 
-    // Case 1: List is not empty
-    // First sort by estimatedCheckOut
-    while (current.getNext() != null) {
-      index = current.getNext();
-      while (index.getNext() != null) {
-        // If the EstimatedCheckOut's are equal, then sort by GuestName
-        if (current.getData().getEstimatedCheckOut().compareTo(index.getData()
-            .getEstimatedCheckOut()) == 0) {
-          if (current.getData().getGuestName().compareTo(index.getData().getGuestName()) <= 0) {
-            temp = current.getData();
-            current.setData(index.getData());
-            index.setData(temp);
-          }
-        }
-        // If the EstimatedCheckOut's are not equal, then sort accordingly
-        if (current.getData().getEstimatedCheckOut().compareTo(index.getData()
-            .getEstimatedCheckOut()) < 0) {
-          temp = current.getData();
-          current.setData(index.getData());
-          index.setData(temp);
-        }
-        index = index.getNext();
+    // Sort each ArrayList
+    sortEstCheckOut(tents);
+    sortEstCheckOut(rvs);
+
+    // Clear the current LinkedList
+    clear();
+
+    // Add each ArrayList back to the LinkedList in order
+    // Add Tents
+    for (CampSite tent:tents) {
+      current = top;
+      if (size == 0) {
+        top = new Node(tent, null);
+        ++size;
       }
-      current = current.getNext();
+      else {
+        for (int i = 0; i < size - 1; ++i) {
+          current = current.getNext();
+        }
+        current.setNext(new Node(tent, null));
+        ++size;
+      }
+    }
+    // Add RV's
+    for (CampSite rv:rvs) {
+      current = top;
+      if (size == 0) {
+        top = new Node(rv, null);
+        ++size;
+      }
+      else {
+        for (int i = 0; i < size - 1; ++i) {
+          current = current.getNext();
+        }
+        current.setNext(new Node(rv, null));
+        ++size;
+      }
     }
 
     current = top;
+    CampSite tempCampSite;
 
-    // Then sort by CampSite type
-    while (current != null) {
-      index = current.getNext();
+    // Loop through the list and check for any links that meet the special case
+    while (current.getNext() != null) {
+      if (current.getData().getEstimatedCheckOut().equals(
+          current.getNext().getData().getEstimatedCheckOut())) {
+        if (current.getData().getGuestName().compareTo(
+            current.getNext().getData().getGuestName()) > 0) {
+          if (current.getNext().getData() instanceof TentOnly && current.getData() instanceof TentOnly) {
 
-      while (index != null) {
-        if (current.getData() instanceof TentOnly) {
-          temp = current.getData();
-          current.setData(index.getData());
-          index.setData(temp);
+            tempCampSite = current.getData();
+            current.setData(current.getNext().getData());
+            current.getNext().setData(tempCampSite);
+          } else if (current.getNext().getData() instanceof RV && current.getData() instanceof RV) {
+            tempCampSite = current.getData();
+            current.setData(current.getNext().getData());
+            current.getNext().setData(tempCampSite);
+          }
         }
-        index = index.getNext();
       }
       current = current.getNext();
     }
   }
+
+  /*********************************************************************************************
+   *
+   * Sorts  an imported ArrayList of CampSites according to each CampSite's estimated Check Out
+   *
+   *********************************************************************************************/
+  private void sortEstCheckOut(ArrayList<CampSite> camps) {
+    camps.sort((CampSite c1, CampSite c2)->c2.getEstimatedCheckOut()
+        .compareTo(c1.getEstimatedCheckOut()));
+  }
+
   /*********************************************************************************************
    * Removes a CampSite at a given index
    *
