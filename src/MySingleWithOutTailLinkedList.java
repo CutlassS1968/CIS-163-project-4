@@ -1,15 +1,38 @@
 import java.io.Serializable;
 
+/**********************************************************************************************
+ *
+ * MySingleWithOutTailLinkedList contains the framework for Database List operations including
+ * adding to the list, removing at a given index, retrieving a CampSite at a given index, and
+ * sorting based on CampSite type and the estimated check out date
+ *
+ * @author Evan Johns
+ * @version 04/12/2020
+ *
+ **********************************************************************************************/
 public class MySingleWithOutTailLinkedList implements Serializable {
+
+  /** current top of the LinkedList */
   private Node top;
+
+  /** current size of the LinkedList */
   public int size;
 
-
+  /*********************************************************************************************
+   *
+   * Instantiates ListModel's instance variables
+   *
+   *********************************************************************************************/
   public MySingleWithOutTailLinkedList() {
     top = null;
     size = 0;
   }
 
+  /*********************************************************************************************
+   * Loops through the LinkedList to count it's current size
+   *
+   * @return returns the current size of the LinkedList
+   *********************************************************************************************/
   public int size() {
     int total = 0;
 
@@ -21,12 +44,21 @@ public class MySingleWithOutTailLinkedList implements Serializable {
     return total;
   }
 
-
+  /*********************************************************************************************
+   *
+   * Clears the list of all nodes
+   *
+   *********************************************************************************************/
   public void clear() {
     top = null;
     size = 0;
   }
 
+  /*********************************************************************************************
+   * Adds a CampSite to the LinkedList and then sorts it
+   *
+   * @param data The CampSite that is being added to the bottom of the LinkedList
+   *********************************************************************************************/
   public void add(CampSite data) {
     Node temp = top;
 
@@ -38,11 +70,9 @@ public class MySingleWithOutTailLinkedList implements Serializable {
 
     // Case 1: Normal list
     else {
-      // Loop till at the last node
       for (int i = 0; i < size - 1; ++i) {
         temp = temp.getNext();
       }
-
       temp.setNext(new Node(data, null));
       ++size;
     }
@@ -50,44 +80,41 @@ public class MySingleWithOutTailLinkedList implements Serializable {
     // Sort the list after adding
     sortList();
 
-//    display();
+  }
 
-
-    //TODO: figure out how to sort the LinkedList according to the guidelines
-    //TODO: Adding a tent doesn't add a tent and adding an RV adds two RV's
-    // This is not an issue with sortList(). when you add enough campsites eventually one
-    // the first one you added shows up in the GUI. When entries are duplicated, they are
-    // not being duplicated in the list, but in the GUI.
-    // the issue seems to be with the fileredListCampSites and it's size. listCampSites is
-    // correct in order and in size, while fileredListCampSites is at size 9 when it should be 1.
-    // This could possibly be an issue with the get method.
-    }
-
-       /*
-       Requirement for this step: When you write the add method, you are required to sort
-       by Tenters first (ordered by estimatedCheckOut) and by RV second (ordered by
-       estimatedCheckOut).  For this step, you need not worry about two estimatedCheckOut
-       dates being equals.  (See the final step regarding a change in this requirement).
-        (Suggestion, once your code is working for this step, back it up, and proceed on.)
-        */
-
-
+  // TODO: Split LinkedList into two ArrayLists (tenters and RV's), then sort the two by checkOut
+  /*********************************************************************************************
+   * Sorts the list, first according to each CampSite's check out date. Then sorts
+   * the list according to each CampSite's type. This method is called every time
+   * a CampSite is added to the List
+   *********************************************************************************************/
   public void sortList() {
     Node current = top;
     Node index;
     CampSite temp;
 
-    // If the list is empty
+    // Case 0: If the list is empty
     if (top.getNext() == null) {
       return;
     }
 
+    // Case 1: List is not empty
     // First sort by estimatedCheckOut
     while (current.getNext() != null) {
       index = current.getNext();
-
       while (index.getNext() != null) {
-        if (current.getData().getEstimatedCheckOut().compareTo(index.getData().getEstimatedCheckOut()) <= 0) {
+        // If the EstimatedCheckOut's are equal, then sort by GuestName
+        if (current.getData().getEstimatedCheckOut().compareTo(index.getData()
+            .getEstimatedCheckOut()) == 0) {
+          if (current.getData().getGuestName().compareTo(index.getData().getGuestName()) <= 0) {
+            temp = current.getData();
+            current.setData(index.getData());
+            index.setData(temp);
+          }
+        }
+        // If the EstimatedCheckOut's are not equal, then sort accordingly
+        if (current.getData().getEstimatedCheckOut().compareTo(index.getData()
+            .getEstimatedCheckOut()) < 0) {
           temp = current.getData();
           current.setData(index.getData());
           index.setData(temp);
@@ -97,7 +124,7 @@ public class MySingleWithOutTailLinkedList implements Serializable {
       current = current.getNext();
     }
 
-      current = top;
+    current = top;
 
     // Then sort by CampSite type
     while (current != null) {
@@ -113,27 +140,35 @@ public class MySingleWithOutTailLinkedList implements Serializable {
       }
       current = current.getNext();
     }
-    // TODO: Change sort method, tenters are not being sorted by est check out properly
   }
-
+  /*********************************************************************************************
+   * Removes a CampSite at a given index
+   *
+   * @param index the index of the CampSite that is being removed
+   * @return returns the CampSite that was removed
+   *********************************************************************************************/
   public CampSite remove(int index) {
-    // case 0, no list
-    if (top == null)
+    // ----- index is invalid -----
+    // Case 0: no list
+    if (top == null) {
       return null;
+    }
 
-    // case 1, index is neg
-    if (index < 0)
+    // Case 1: index is negative
+    if (index < 0) {
       return null;
+    }
 
-    // case 2, index is too large
-    if (index >= size)
+    // Case 2: index is too large
+    if (index >= size) {
       return null;
+    }
 
-    //  ------ index is valid
+    //  ----- index is valid -----
     Node temp1;
     Node temp2;
 
-    // case 3
+    // Case 3: index is the top of the list
     if (index == 0) {
       temp1 = top;
       top = top.getNext();
@@ -141,53 +176,73 @@ public class MySingleWithOutTailLinkedList implements Serializable {
       return temp1.getData();
     }
 
-    // case 4 Multi items in the list
+    // Case 4: index is the bottom of the list
+    if (index == size - 1) {
+      temp1 = top;
+      for (int i = 0; i < index - 1; i++) {
+        temp1 = temp1.getNext();
+      }
+      temp2 = temp1.getNext();
+      temp1.setNext(null);
+      return temp2.getData();
+    }
+
+    // Case 5: All other valid index's
     temp1 = top;
-    for (int i = 0; i < index; i++)
+    for (int i = 0; i < index; i++) {
       temp1 = temp1.getNext();
-    temp2 = temp1;
+    }
+    temp2 = temp1.getNext();
     temp1.setNext(temp1.getNext().getNext());
     --size;
-    return temp2.getNext().getData();
+    return temp2.getData();
 
   }
 
+  /*********************************************************************************************
+   * Retrieves a CampSite at a given index
+   *
+   * @param index the index of the CampSite that is being removed
+   * @return returns the CampSite at the index
+   *********************************************************************************************/
   public CampSite get(int index) {
 
     // ----- Index is invalid -----
-    // List is empty
+    // Case 0: List is empty
     if (top == null) {
       return null;
     }
 
-    // Index is below 0
+    // Case 1: Index is below 0
     if (index < 0) {
       return null;
     }
 
-    // Index is bigger than list
+    // Case 2: Index is bigger than list
     if (index >= size) {
       return null;
     }
 
     // ----- Index is valid -----
-    // Index is top
+    // Case 3: Index is top
     if (index == 0) {
       return top.getData();
     }
 
-    // Search the list and return the CampSite at index
+    // Case 4: Search the list and return the CampSite at index
     Node temp = top;
     for (int i = 0; i < index; i++) {
       temp = temp.getNext();
     }
-
     return temp.getData();
-
   }
 
+  /*********************************************************************************************
+   *
+   * Loops through the current LinkedList and displays every guest name in order
+   *
+   *********************************************************************************************/
   public void display() {
-    System.out.println(" ----- New Add ----- ");
     Node temp = top;
     while (temp != null) {
       System.out.println(temp.getData().getGuestName());
@@ -195,11 +250,14 @@ public class MySingleWithOutTailLinkedList implements Serializable {
     }
   }
 
+  /*********************************************************************************************
+   * Overrides the default Object toString method. This toString returns a
+   * string that displays the top of the list and the list's size
+   *
+   * @return String of the top and size of the LinkedList
+   *********************************************************************************************/
   @Override
   public String toString() {
-    return "MySingleWithOutTailLinkedList{" +
-        "top=" + top +
-        ", size=" + size +
-        '}';
+    return "MySingleWithOutTailLinkedList{" + "top=" + top + ", size=" + size + '}';
   }
 }
